@@ -24,4 +24,29 @@ async function generate(name) {
   return imgToPDF([cert], [841.89, 595.28]);
 }
 
-module.exports = { generate };
+async function generatePanitia(name) {
+  const text = sharp({
+    text: {
+      text: '<span foreground="#002B59"><b>' + name + "</b></span>",
+      dpi: 490,
+      rgba: true,
+      font: "League Spartan",
+      fontfile: "./spartan.ttf",
+    },
+  });
+
+  const cert = await sharp("base-panitia.png")
+    .composite([
+      {
+        input: await text.png().toBuffer(),
+        top: 420,
+        left: Math.floor(1719 / 2 - (await text.metadata()).width / 2),
+      },
+    ])
+    .png({ quality: 100 })
+    .toBuffer();
+
+  return imgToPDF([cert], [841.89, 595.28]);
+}
+
+module.exports = { generate, generatePanitia };
