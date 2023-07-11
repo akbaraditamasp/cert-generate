@@ -8,6 +8,7 @@ const port = 1702;
 app.use(cors());
 
 app.get("/", async (req, res) => {
+  res.setHeader("Content-Type", "application/pdf");
   (await generate(req.query.name)).pipe(res);
 });
 

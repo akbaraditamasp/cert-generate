@@ -11,6 +11,7 @@ async function generate(name) {
             dpi: 480,
             rgba: true,
             font: "Squada One",
+            fontfile: "./squada.ttf",
           },
         },
         top: 520,
